@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/curso")
+@RequestMapping("/api/cursos")
 public class CursoController {
     @Autowired
     private CursoService cursoService;
@@ -24,6 +24,11 @@ public class CursoController {
     public ResponseEntity<Curso> getCursoById(@PathVariable Long id) {
         Optional<Curso> curso = cursoService.getById(id);
         return curso.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public Curso createCurso(@RequestBody Curso curso) {
+        return cursoService.save(curso);
     }
 
     @PutMapping("/{id}")
